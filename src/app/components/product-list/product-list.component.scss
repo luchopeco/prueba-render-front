@@ -1,0 +1,19 @@
+.loading-container {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -30%);
+  background-color: rgba(255, 255, 255, 0.8); /* opcional */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  z-index: 9999;
+}
+
+.full-height-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
