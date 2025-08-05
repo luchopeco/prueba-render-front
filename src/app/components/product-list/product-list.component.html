@@ -1,17 +1,60 @@
-<div class="container mt-5">
-  <h1 class="mb-4">Productos</h1>
-  <div class="row">
-    <div *ngIf="isLoading" class="loading-container full-height-container">
-      <i class="fas fa-spinner fa-spin fa-3x"></i>
+<div class="products-section">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h1 class="display-4 fw-bold">Nuestros Productos</h1>
+      <p class="text-muted lead">Descubre nuestra selección de productos de alta calidad</p>
+      <button class="btn btn-primary btn-lg download-btn" (click)="downloadPDF()">
+        <i class="bi bi-file-pdf me-2"></i>
+        Descargar Catálogo PDF
+      </button>
     </div>
-    <div class="col-md-4" *ngFor="let product of products">
-      <div class="card mb-4">
-        <img [src]="product.urlImage" class="card-img-top" alt="{{product.name}}">
-        <div class="card-body">
-          <h5 class="card-title">{{product.name}}</h5>
-          <p class="card-text">{{product.description}}</p>
-          <p><strong>Marca:</strong> {{product.brand}}</p>
-          <p><strong>Precio:</strong> ${{product.price}}</p>
+
+    <div *ngIf="isLoading || isGeneratingPDF" class="loading-container">
+      <div class="spinner-wrapper">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-3">{{ isGeneratingPDF ? 'Generando PDF...' : 'Cargando productos...' }}</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4" *ngFor="let product of products">
+        <div class="product-card">
+          <div class="product-image">
+            <div class="image-container">
+              <ng-container *ngIf="product.urlImage && !hasImageError[product.id]">
+                <img [src]="product.urlImage"
+                     [alt]="product.name"
+                     (error)="handleImageError($event, product.id)"
+                     class="product-img">
+              </ng-container>
+              <div class="fallback-content" *ngIf="!product.urlImage || hasImageError[product.id]">
+                <div class="placeholder-wrapper">
+                  <i class="bi bi-box-seam"></i>
+                  <div class="placeholder-info">
+                    <span class="product-initial">{{product.name ? product.name[0].toUpperCase() : '?'}}</span>
+                    <span class="product-brand">{{product.brand || 'Sin marca'}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-overlay">
+              <span class="brand-tag">{{product.brand}}</span>
+            </div>
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">{{product.name}}</h3>
+            <p class="product-description">{{product.description}}</p>
+            <div class="product-footer">
+              <span class="price-tag">${{product.price}}</span>
+              <div class="product-meta">
+                <span class="brand-name">
+                  <i class="bi bi-tag"></i> {{product.brand}}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

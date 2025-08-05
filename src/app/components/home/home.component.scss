@@ -1,5 +1,135 @@
-.full-height-container {
-  height: 100vh;
+.hero-section {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+
+    span {
+      background: linear-gradient(120deg, #007bff, #0056b3);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    color: #6c757d;
+  }
+
+  .cta-buttons {
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+.hero-image {
+  position: relative;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.floating-cards {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .product-card {
+    position: absolute;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:first-child {
+      top: 20%;
+      left: 10%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    &:last-child {
+      bottom: 20%;
+      right: 10%;
+      animation: float 6s ease-in-out infinite;
+      animation-delay: -3s;
+    }
+
+    i {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h5 {
+      margin: 0;
+      color: #343a40;
+    }
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.features-section {
+  padding: 5rem 0;
+  background-color: white;
+
+  .feature-card {
+    background: white;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #007bff;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: #343a40;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #6c757d;
+      margin-bottom: 0;
+    }
+  }
 }

@@ -1,15 +1,60 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Lista de precio</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">
+      <span class="text-primary">Lista de</span> Precios
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/">Inicio</a>
+          <a class="nav-link px-4" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="bi bi-house-door me-1"></i> Inicio
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/productos">Productos</a>
+          <a class="nav-link px-4" routerLink="/productos" routerLinkActive="active">
+            <i class="bi bi-box me-1"></i> Productos
+          </a>
         </li>
       </ul>
+
+      <!-- Buscador para pantallas grandes -->
+      <div class="search-container d-none d-lg-block" *ngIf="showSearch">
+        <div class="search-wrapper">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Buscar por nombre, marca o precio..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchInput($event)">
+          <i class="bi bi-x-circle clear-icon"
+             *ngIf="searchTerm"
+             (click)="searchTerm = ''; onSearchInput({target: {value: ''}})"
+          ></i>
+        </div>
+      </div>
+
+      <!-- Buscador para móviles -->
+      <div class="search-container d-lg-none" *ngIf="showSearch">
+        <div class="search-wrapper">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Buscar por nombre, marca o precio..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchInput($event)">
+          <i class="bi bi-x-circle clear-icon"
+             *ngIf="searchTerm"
+             (click)="searchTerm = ''; onSearchInput({target: {value: ''}})"
+          ></i>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
+<!-- Spacer para compensar el navbar fixed -->
+<div class="navbar-spacer"></div>
