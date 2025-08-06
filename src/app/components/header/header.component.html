@@ -1,11 +1,27 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">
-      <span class="text-primary">Lista de</span> Precios
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="navbar-left-section d-flex align-items-center">
+      <a class="navbar-brand fw-bold" routerLink="/">
+        <span class="text-primary">Lista de</span> Precios
+      </a>
+    </div>
+
+    <div class="navbar-right-section d-flex align-items-center">
+      <!-- Cart Button (ahora fuera del collapse) -->
+      <button class="cart-btn rounded-pill d-flex align-items-center me-2" (click)="cartService.toggleCart()">
+        <i class="bi bi-cart-fill text-primary"></i>
+        <span class="cart-count" *ngIf="(cartService.cart$ | async)?.length">
+          {{(cartService.cart$ | async)?.length}}
+        </span>
+      </button>
+
+      <!-- Hamburger Menu -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -19,14 +35,6 @@
           </a>
         </li>
       </ul>
-
-      <!-- Cart Button -->
-      <button class="cart-btn rounded-pill d-flex align-items-center" (click)="cartService.toggleCart()">
-        <i class="bi bi-cart-fill text-primary"></i>
-        <span class="cart-count" *ngIf="(cartService.cart$ | async)?.length">
-          {{(cartService.cart$ | async)?.length}}
-        </span>
-      </button>
 
       <!-- Buscador para pantallas grandes -->
       <div class="search-container d-none d-lg-block" *ngIf="showSearch">

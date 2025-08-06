@@ -7,11 +7,12 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
 import { CartService } from '../../services/cart.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

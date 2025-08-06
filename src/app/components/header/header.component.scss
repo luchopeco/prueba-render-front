@@ -4,6 +4,32 @@
     padding: 0.8rem 0;
     transition: all 0.3s ease;
 
+    .navbar-right-section {
+      margin-left: auto;
+      order: 3;
+    }
+
+    .navbar-collapse {
+      order: 2;
+    }
+
+    @media (max-width: 991.98px) {
+      .container {
+        padding-right: 1rem;
+        padding-left: 1rem;
+      }
+
+      .navbar-collapse {
+        position: fixed;
+        top: 70px; // ajusta según la altura de tu navbar
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    }
+
     .search-container {
       max-width: 400px;
       width: 100%;
