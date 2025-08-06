@@ -3,7 +3,7 @@
     <div class="row align-items-center">
       <div class="col-lg-6 text-center text-lg-start">
         <h1 class="display-4 fw-bold mb-4">Bienvenidos a nuestra<br><span class="text-primary">Lista de Precios</span></h1>
-        <p class="lead mb-4">Descubre nuestra amplia selección de productos de alta calidad a los mejores precios del mercado.</p>
+        <p class="lead mb-4">Descubre nuestra amplia selección de productos de alta calidad. Comprar es muy fácil: agrega al carrito y coordina por WhatsApp.</p>
         <div class="cta-buttons">
           <a class="btn btn-primary btn-lg me-3" routerLink="/productos">
             <i class="bi bi-box me-2"></i>Ver Productos
@@ -17,12 +17,20 @@
         <div class="hero-image">
           <div class="floating-cards">
             <div class="product-card shadow-sm">
-              <i class="bi bi-star-fill text-warning"></i>
-              <h5>Productos Destacados</h5>
+              <i class="bi bi-cart-plus text-primary"></i>
+              <h5>Agregar al Carrito</h5>
+              <p class="small text-muted">Selecciona tus productos favoritos</p>
             </div>
             <div class="product-card shadow-sm">
-              <i class="bi bi-currency-dollar text-success"></i>
-              <h5>Mejores Precios</h5>
+              <i class="bi bi-whatsapp text-success"></i>
+              <h5>Pedido por WhatsApp</h5>
+              <p class="small text-muted">Atención personalizada</p>
+            </div>
+            <div class="product-card shadow-sm payment-card">
+              <i class="bi bi-cash-coin text-success me-2"></i>
+              <i class="bi bi-bank text-primary"></i>
+              <h5>Formas de Pago</h5>
+              <p class="small text-muted">Efectivo y Transferencia</p>
             </div>
           </div>
         </div>
@@ -30,6 +38,91 @@
     </div>
   </div>
 </div>
+
+<!-- Features Section -->
+<section id="features" class="features-section py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">¿Cómo Comprar?</h2>
+    <div class="row g-4">
+      <!-- Step 1 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-search fs-1 text-primary"></i>
+          </div>
+          <h4>1. Explora</h4>
+          <p>Navega por nuestro catálogo y encuentra tus productos favoritos</p>
+        </div>
+      </div>
+      
+      <!-- Step 2 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-cart-plus fs-1 text-primary"></i>
+          </div>
+          <h4>2. Agrega al Carrito</h4>
+          <p>Selecciona los productos y agrégalos a tu carrito de compras</p>
+        </div>
+      </div>
+      
+      <!-- Step 3 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-whatsapp fs-1 text-success"></i>
+          </div>
+          <h4>3. Coordina</h4>
+          <p>Te contactamos por WhatsApp para coordinar la entrega</p>
+        </div>
+      </div>
+      
+      <!-- Step 4 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="feature-card text-center p-4 h-100">
+          <div class="feature-icon mb-3">
+            <i class="bi bi-wallet2 fs-1 text-primary"></i>
+          </div>
+          <h4>4. Paga</h4>
+          <p>Elige tu forma de pago preferida: efectivo o transferencia bancaria</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Info -->
+    <div class="payment-info mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+              <h3 class="text-center mb-4">Formas de Pago</h3>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="payment-method d-flex align-items-center">
+                    <i class="bi bi-cash-coin fs-2 text-success me-3"></i>
+                    <div>
+                      <h5 class="mb-1">Efectivo</h5>
+                      <p class="mb-0 text-muted">Pago en efectivo al momento de la entrega</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="payment-method d-flex align-items-center">
+                    <i class="bi bi-bank fs-2 text-primary me-3"></i>
+                    <div>
+                      <h5 class="mb-1">Transferencia Bancaria</h5>
+                      <p class="mb-0 text-muted">Transferencia antes de la entrega</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section id="features" class="features-section">
   <div class="container">

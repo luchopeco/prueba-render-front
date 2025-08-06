@@ -1,41 +1,42 @@
-<div class="products-section">
-  <div class="container">
-    <div class="section-header text-center mb-5">
-      <h1 class="display-4 fw-bold">Nuestros Productos</h1>
-      <p class="text-muted lead">Descubre nuestra selección de productos de alta calidad</p>
-      <button class="btn btn-primary btn-lg download-btn" (click)="downloadPDF()">
-        <i class="bi bi-file-pdf me-2"></i>
-        Descargar Catálogo PDF
-      </button>
-    </div>
+<div class="product-list container">
+  <!-- Header -->
+  <header class="text-center mb-5">
+    <h1 class="display-4 fw-bold">Nuestros Productos</h1>
+    <p class="text-muted lead">Descubre nuestra selección de productos de alta calidad</p>
+    <button class="btn btn-primary btn-lg download-btn rounded-pill shadow-sm" (click)="downloadPDF()">
+      <i class="bi bi-file-earmark-pdf-fill me-2"></i>
+      Descargar Catálogo PDF
+    </button>
+  </header>
 
-    <div *ngIf="isLoading || isGeneratingPDF" class="loading-container">
-      <div class="spinner-wrapper">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Cargando...</span>
-        </div>
-        <p class="mt-3">{{ isGeneratingPDF ? 'Generando PDF...' : 'Cargando productos...' }}</p>
+  <!-- Loading State -->
+  <section *ngIf="isLoading || isGeneratingPDF" class="loading-container">
+    <div class="spinner-wrapper">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
       </div>
+      <p class="mt-3">{{ isGeneratingPDF ? 'Generando PDF...' : 'Cargando productos...' }}</p>
     </div>
+  </section>
 
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-4" *ngFor="let product of products">
-        <div class="product-card">
+  <!-- Products Grid -->
+  <section class="products py-4">
+    <div class="row g-4 justify-content-center">
+      <div class="col-sm-12 col-md-6 col-lg-4" *ngFor="let product of products">
+        <article class="product-card h-100">
           <div class="product-image">
-            <div class="image-container">
-              <ng-container *ngIf="product.urlImage && !hasImageError[product.id]">
-                <img [src]="product.urlImage"
-                     [alt]="product.name"
-                     (error)="handleImageError($event, product.id)"
-                     class="product-img">
-              </ng-container>
-              <div class="fallback-content" *ngIf="!product.urlImage || hasImageError[product.id]">
-                <div class="placeholder-wrapper">
-                  <i class="bi bi-box-seam"></i>
-                  <div class="placeholder-info">
-                    <span class="product-initial">{{product.name ? product.name[0].toUpperCase() : '?'}}</span>
-                    <span class="product-brand">{{product.brand || 'Sin marca'}}</span>
-                  </div>
+            <ng-container *ngIf="product.urlImage && !hasImageError[product.id]">
+              <img [src]="product.urlImage"
+                   [alt]="product.name"
+                   (error)="handleImageError($event, product.id)"
+                   class="product-img">
+            </ng-container>
+            <div class="fallback-content" *ngIf="!product.urlImage || hasImageError[product.id]">
+              <div class="placeholder-wrapper">
+                <i class="bi bi-box-seam"></i>
+                <div class="placeholder-info">
+                  <span class="product-initial">{{product.name ? product.name[0].toUpperCase() : '?'}}</span>
+                  <span class="product-brand">{{product.brand || 'Sin marca'}}</span>
                 </div>
               </div>
             </div>
@@ -46,17 +47,21 @@
           <div class="product-content">
             <h3 class="product-title">{{product.name}}</h3>
             <p class="product-description">{{product.description}}</p>
-            <div class="product-footer">
-              <span class="price-tag">${{product.price}}</span>
-              <div class="product-meta">
-                <span class="brand-name">
-                  <i class="bi bi-tag"></i> {{product.brand}}
-                </span>
-              </div>
+            <div class="product-footer d-flex align-items-center justify-content-between">
+              <span class="price-tag fs-5">${{product.price | price}}</span>
+              <button class="btn btn-primary add-to-cart rounded-pill d-flex align-items-center gap-2" (click)="openAddToCart(product)">
+                <i class="bi bi-cart-plus fs-5"></i>
+                <span>Agregar</span>
+              </button>
             </div>
           </div>
-        </div>
+        </article>
       </div>
     </div>
-  </div>
+  </section>
+
+  <app-add-to-cart-modal
+    [(visible)]="modalVisible"
+    [product]="selectedProduct">
+  </app-add-to-cart-modal>
 </div>

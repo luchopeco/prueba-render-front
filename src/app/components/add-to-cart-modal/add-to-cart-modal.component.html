@@ -1,0 +1,67 @@
+<!-- Modal Overlay -->
+<div class="modal-overlay" [class.show]="visible" (click)="close()"></div>
+
+<!-- Add to Cart Modal -->
+<div class="add-to-cart-modal" [class.show]="visible">
+  <section class="modal-content">
+    <header class="modal-header align-items-center">
+      <h5 class="mb-0 d-flex align-items-center gap-2">
+        <i class="bi bi-basket2-fill text-primary"></i>
+        Agregar al Carrito
+      </h5>
+      <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+    </header>
+    <div class="modal-body" *ngIf="product">
+      <h4>{{product.name}} - {{product.brand}}</h4>
+      <p class="price">${{product.price | price}}</p>
+      
+      <div class="form-group">
+        <label for="quantity">Cantidad:</label>
+        <input type="number" 
+               id="quantity" 
+               [(ngModel)]="quantity" 
+               min="1" 
+               class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="aroma">Aroma: <span class="required">*</span></label>
+        <div class="aroma-input-container">
+          <input type="text" 
+                 id="aroma" 
+                 [(ngModel)]="aroma" 
+                 class="form-control" 
+                 [class.is-invalid]="aroma !== undefined && !isAromaValid()"
+                 [placeholder]="'Ej: ' + (suggestedAromas[0] || 'Lavanda')"
+                 (input)="onAromaInput($event)"
+                 (keyup.enter)="addToCart()"
+                 autocomplete="off">
+          <div class="aroma-suggestions" *ngIf="filteredAromas.length && showSuggestions">
+            <div class="suggestion-item" 
+                 *ngFor="let suggestion of filteredAromas" 
+                 (click)="selectAroma(suggestion)">
+              {{suggestion}}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="aroma !== undefined && !isAromaValid()" class="invalid-feedback">
+          Por favor, ingresa el aroma del producto (por ejemplo: {{suggestedAromas[0]}})
+        </div>
+        <small class="text-muted mt-1">
+          <i class="bi bi-lightbulb"></i> Tip: Puedes escribir para ver sugerencias de aromas disponibles
+        </small>
+      </div>
+
+      <div class="total">
+        <strong>Total: ${{product.price * quantity | price}}</strong>
+      </div>
+    </div>
+    <footer class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+      <button type="button" 
+              class="btn btn-primary" 
+              [disabled]="!isAromaValid()"
+              (click)="addToCart()">Agregar al Carrito</button>
+    </footer>
+  </section>
+</div>

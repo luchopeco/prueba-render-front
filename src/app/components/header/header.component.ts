@@ -6,6 +6,7 @@ import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { SearchService } from '../../services/search.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private searchService: SearchService
+    private searchService: SearchService,
+    public cartService: CartService
   ) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)

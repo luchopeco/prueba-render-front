@@ -20,6 +20,14 @@
         </li>
       </ul>
 
+      <!-- Cart Button -->
+      <button class="cart-btn rounded-pill d-flex align-items-center" (click)="cartService.toggleCart()">
+        <i class="bi bi-cart-fill text-primary"></i>
+        <span class="cart-count" *ngIf="(cartService.cart$ | async)?.length">
+          {{(cartService.cart$ | async)?.length}}
+        </span>
+      </button>
+
       <!-- Buscador para pantallas grandes -->
       <div class="search-container d-none d-lg-block" *ngIf="showSearch">
         <div class="search-wrapper">

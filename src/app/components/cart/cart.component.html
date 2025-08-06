@@ -1,0 +1,38 @@
+<div class="cart-sidebar shadow-lg" [class.open]="(cartService.isCartOpen$ | async)">
+  <div class="cart-header pt-3">
+    <h3 class="mb-0">Carrito de Compras</h3>
+    <button class="btn-close shadow-none" aria-label="Close" (click)="cartService.toggleCart()"></button>
+  </div>
+  
+  <div class="cart-items">
+    <div *ngIf="(cartService.cart$ | async)?.length === 0" class="empty-cart">
+      <p>No hay productos en el carrito</p>
+    </div>
+    
+    <div *ngFor="let item of cartService.cart$ | async" class="cart-item">
+      <div class="item-info">
+        <h4>{{item.name}} - {{item.brand}}</h4>
+        <p>Aroma: {{item.aroma}}</p>
+        <p>Cantidad: {{item.quantity}} x ${{item.price | price}}</p>
+        <p class="subtotal">Subtotal: ${{item.quantity * item.price | price}}</p>
+      </div>
+      <button class="remove-btn" (click)="cartService.removeItem(item.id, item.aroma)">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="cart-footer" *ngIf="(cartService.cart$ | async)?.length">
+    <div class="total">
+      <h4>Total: ${{cartService.getTotal() | price}}</h4>
+      <small>*El total puede variar según disponibilidad</small>
+      <div class="whatsapp-info mt-2">
+        <i class="bi bi-whatsapp"></i>
+        <span>¡Tranqui! 😊 Te llevamos al WhatsApp donde coordinaremos la forma de pago y entrega que más te convenga</span>
+      </div>
+    </div>
+    <button class="order-btn" (click)="sendWhatsAppOrder()">
+      <i class="bi bi-whatsapp"></i> Hacer Pedido
+    </button>
+  </div>
+</div>

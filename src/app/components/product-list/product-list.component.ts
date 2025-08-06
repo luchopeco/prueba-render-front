@@ -1,16 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { SearchService } from '../../services/search.service';
+import { CartService } from '../../services/cart.service';
 import { Subscription } from 'rxjs';
-
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { AddToCartModalComponent } from '../add-to-cart-modal/add-to-cart-modal.component';
+import { PricePipe } from '../../pipes/price.pipe';
+import { jsPDF } from 'jspdf';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, AddToCartModalComponent, PricePipe],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -19,12 +21,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   isGeneratingPDF = false;
   products: any[] = [];
   hasImageError: { [key: string]: boolean } = {};
+  selectedProduct: any = null;
+  modalVisible = false;
   private allProducts: any[] = [];
   private searchSubscription: Subscription | null = null;
 
   constructor(
     private productService: ProductService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private cartService: CartService
   ) {}
 
   handleImageError(event: Event, productId: any): void {
@@ -39,12 +44,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
       console.log('Products loaded:', data.productList);
       this.allProducts = data.productList.map((product: any, index: number) => ({
         ...product,
-        id: product._id || `product-${index}` // Aseguramos que cada producto tenga un ID
+        id: product._id || `product-${index}`
       }));
       this.products = [...this.allProducts];
       this.isLoading = false;
 
-      // Suscribirse al servicio de búsqueda
       this.searchSubscription = this.searchService.searchTerms$.subscribe(term => {
         this.filterProducts(term);
       });
@@ -58,9 +62,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   private filterProducts(searchTerm: string) {
-    console.log('Filtering products with term:', searchTerm); // Para debug
-    console.log('Total products before filter:', this.allProducts.length); // Para debug
-
     if (!searchTerm) {
       this.products = [...this.allProducts];
       return;
@@ -73,16 +74,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
       const description = product.description?.toLowerCase() || '';
       const price = product.price?.toString() || '';
 
-      const matches =
-        name.includes(searchTerm) ||
-        brand.includes(searchTerm) ||
-        description.includes(searchTerm) ||
-        price.includes(searchTerm);
-
-      return matches;
+      return name.includes(searchTerm) ||
+             brand.includes(searchTerm) ||
+             description.includes(searchTerm) ||
+             price.includes(searchTerm);
     });
+  }
 
-    console.log('Filtered products:', this.products.length); // Para debug
+  openAddToCart(product: any) {
+    this.selectedProduct = product;
+    this.modalVisible = true;
+  }
+
+  closeAddToCart() {
+    this.selectedProduct = null;
+    this.modalVisible = false;
   }
 
   async downloadPDF() {
@@ -205,7 +211,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
     doc.save('productos.pdf');
     } catch (error) {
-      console.error('Error al generar el PDF:', error);
+      console.error('Error generating PDF:', error);
     } finally {
       this.isGeneratingPDF = false;
     }

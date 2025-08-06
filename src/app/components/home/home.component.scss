@@ -1,7 +1,7 @@
 .hero-section {
   padding: 6rem 0;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  min-height: 100vh;
+  min-height: 80vh;
   display: flex;
   align-items: center;
 
@@ -48,6 +48,7 @@
   position: relative;
   width: 100%;
   height: 100%;
+  perspective: 1000px;
 
   .product-card {
     position: absolute;
@@ -57,18 +58,33 @@
     text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
+    width: 280px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 
-    &:first-child {
-      top: 20%;
-      left: 10%;
-      animation: float 6s ease-in-out infinite;
+    &:nth-child(1) {
+      top: 10%;
+      left: 5%;
+      transform: rotate(-5deg);
+      animation: float1 6s ease-in-out infinite;
+      z-index: 3;
     }
 
-    &:last-child {
-      bottom: 20%;
-      right: 10%;
-      animation: float 6s ease-in-out infinite;
-      animation-delay: -3s;
+    &:nth-child(2) {
+      top: 25%;
+      left: 25%;
+      transform: rotate(3deg);
+      animation: float2 6s ease-in-out infinite;
+      animation-delay: -2s;
+      z-index: 2;
+    }
+
+    &:nth-child(3) {
+      top: 40%;
+      left: 15%;
+      transform: rotate(-2deg);
+      animation: float3 6s ease-in-out infinite;
+      animation-delay: -4s;
+      z-index: 1;
     }
 
     i {
@@ -79,24 +95,57 @@
     h5 {
       margin: 0;
       color: #343a40;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin: 0;
     }
 
     &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-10px) rotate(0deg);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      z-index: 4;
     }
   }
 }
 
-@keyframes float {
+@keyframes float1 {
   0% {
-    transform: translateY(0px);
+    transform: rotate(-5deg) translateY(0);
   }
   50% {
-    transform: translateY(-20px);
+    transform: rotate(-3deg) translateY(-15px);
   }
   100% {
-    transform: translateY(0px);
+    transform: rotate(-5deg) translateY(0);
+  }
+}
+
+@keyframes float2 {
+  0% {
+    transform: rotate(3deg) translateY(0);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-20px);
+  }
+  100% {
+    transform: rotate(3deg) translateY(0);
+  }
+}
+
+@keyframes float3 {
+  0% {
+    transform: rotate(-2deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-1deg) translateY(-10px);
+  }
+  100% {
+    transform: rotate(-2deg) translateY(0);
   }
 }
 
